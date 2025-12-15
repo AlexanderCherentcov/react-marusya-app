@@ -8,6 +8,7 @@ import { BuildOptions } from './types/types';
 export function buildWebpack(options: BuildOptions): webpack.Configuration {
   const { mode, paths } = options;
   const isDev = mode === 'development';
+  const publicPath = process.env.PUBLIC_PATH || '/';
 
   return {
     mode: mode ?? 'development',
@@ -18,7 +19,7 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
       filename: isDev ? '[name].js' : '[name].[contenthash].js',
       chunkFilename: isDev ? '[name].js' : '[name].[contenthash].js',
       clean: true,
-      publicPath: '/',
+      publicPath: isDev ? '/' : publicPath,
     },
 
     plugins: buildPlugins(options),
