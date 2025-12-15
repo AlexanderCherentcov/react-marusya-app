@@ -1,0 +1,47 @@
+<svg
+  width="64"
+  height="48"
+  viewBox="0 0 64 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- рамка -->
+  <rect
+    x="1"
+    y="1"
+    width="62"
+    height="46"
+    rx="8"
+    stroke="currentColor"
+    stroke-width="2"
+    opacity="0.6"
+  />
+
+  <!-- отверстия плёнки слева -->
+  <rect x="6" y="8" width="6" height="6" rx="2" fill="currentColor" opacity="0.6"/>
+  <rect x="6" y="19" width="6" height="6" rx="2" fill="currentColor" opacity="0.6"/>
+  <rect x="6" y="30" width="6" height="6" rx="2" fill="currentColor" opacity="0.6"/>
+
+  <!-- отверстия плёнки справа -->
+  <rect x="52" y="8" width="6" height="6" rx="2" fill="currentColor" opacity="0.6"/>
+  <rect x="52" y="19" width="6" height="6" rx="2" fill="currentColor" opacity="0.6"/>
+  <rect x="52" y="30" width="6" height="6" rx="2" fill="currentColor" opacity="0.6"/>
+
+  <!-- иконка картинки -->
+  <path
+    d="M20 30L26 24L32 30L38 22L44 30"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.6"
+  />
+
+  <circle
+    cx="28"
+    cy="18"
+    r="3"
+    fill="currentColor"
+    opacity="0.6"
+  />
+</svg>

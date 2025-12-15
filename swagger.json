@@ -1,0 +1,753 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Movie API 1.0",
+    "description": "Данная API предоставляет набор URL, делая запросы на которые Вы получите данные, необходимые для выполнения дипломной работы.",
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "{server}",
+      "variables": {
+        "server": {
+          "default": "https://cinemaguide.skillbox.cc/"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Все что связано с регистрацией и авторизацией"
+    },
+    {
+      "name": "favorites",
+      "description": "Набор методов для работы с добавлением/удалением/получением избранных фильмов"
+    },
+    {
+      "name": "movies",
+      "description": "Набор методов для получения данных о фильмах"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Логин пользователя по почте:паролю",
+        "description": "Принимает адрес почты:пароль, открывает новую пользовательскую сессию",
+        "operationId": "authLoginPOST",
+        "requestBody": {
+          "description": "Адрес почты:пароль",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthInfo"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный логин",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessfulResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные авторизационные данные"
+          }
+        },
+        "x-swagger-router-controller": "Auth"
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Закрытие текущей пользовательской сессии",
+        "operationId": "authLogoutGET",
+        "responses": {
+          "200": {
+            "description": "Успешный логаут",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessfulResult"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Auth"
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Регистрация/Создание пользователя",
+        "operationId": "userPOST",
+        "requestBody": {
+          "description": "Регистрационная информация",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешная регистрация",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessfulResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка при регистрации. Такой пользователь уже существует либо ошибка в передаваемых параметрах.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Auth"
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Получение данных о текущем авторизованном пользователе",
+        "operationId": "profileGET",
+        "responses": {
+          "200": {
+            "description": "Получение данных о пользователе",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Auth"
+      }
+    },
+    "/favorites": {
+      "get": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Получение избранных фильмов",
+        "operationId": "favoritesGET",
+        "responses": {
+          "200": {
+            "description": "Получение избранных фильмов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/Movie"
+                      }
+                    ]
+                  },
+                  "x-content-type": "application/json"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Favorites"
+      },
+      "post": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Добавление фильма в избранное",
+        "operationId": "favoritesPOST",
+        "requestBody": {
+          "description": "Регистрационная информация",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/favorites_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Получение пользователя с актуальным списком избранных фильмов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Для переданного идентификатора фильм не был найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Favorites"
+      }
+    },
+    "/favorites/{movieId}": {
+      "delete": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Удаление фильма из избранного",
+        "operationId": "favoritesMovieIdDELETE",
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "description": "ID фильма",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получение пользователя с актуальным списком избранных фильмов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Favorites"
+      }
+    },
+    "/movie": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Получение фильмов по заданным фильтрам",
+        "operationId": "movieGET",
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "description": "ограничение количества возвращаемых фильмов (по-умолчанию - 50)",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "показ следующей страницы списка фильмов",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "фильтр по названию фильма",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "genre",
+            "in": "query",
+            "description": "фильтр по жанру",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получение фильмов по заданным фильтрам",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/Movie"
+                      }
+                    ]
+                  },
+                  "x-content-type": "application/json"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Movies"
+      }
+    },
+    "/movie/top10": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Получение фильмов с наивысшим рейтингом",
+        "operationId": "movieTop10GET",
+        "responses": {
+          "200": {
+            "description": "Получение фильмов с наивысшим рейтингом",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/Movie"
+                      }
+                    ]
+                  },
+                  "x-content-type": "application/json"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Movies"
+      }
+    },
+    "/movie/genres": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Получение жанров",
+        "operationId": "movieGenresGET",
+        "responses": {
+          "200": {
+            "description": "Получение жанров",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "drama"
+                  },
+                  "x-content-type": "application/json"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Movies"
+      }
+    },
+    "/movie/{movieId}": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Получение фильма по id",
+        "operationId": "movieIdGET",
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "description": "ID фильма",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получение фильма по Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Movies"
+      }
+    },
+    "/movie/random": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Получение случайного фильма",
+        "operationId": "movieRandomGET",
+        "responses": {
+          "200": {
+            "description": "Получение случайного фильма",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          }
+        },
+        "x-swagger-router-controller": "Movies"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John"
+          },
+          "surname": {
+            "type": "string",
+            "example": "James"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@email.com"
+          },
+          "favorites": {
+            "type": "array",
+            "description": "Массив с ID фильмов добавленными в избранное",
+            "items": {
+              "type": "string",
+              "example": "98"
+            }
+          }
+        },
+        "example": {
+          "favorites": [
+            "98",
+            "98"
+          ],
+          "surname": "James",
+          "name": "John",
+          "email": "john@email.com"
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "AuthInfo": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "d4Sv{3d23f"
+          }
+        }
+      },
+      "SuccessfulResult": {
+        "required": [
+          "result"
+        ],
+        "properties": {
+          "result": {
+            "type": "boolean"
+          }
+        },
+        "example": {
+          "result": true
+        }
+      },
+      "Error": {
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "RegisterData": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          }
+        }
+      },
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "relaseYear": {
+            "type": "integer"
+          },
+          "releaseDate": {
+            "type": "string"
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "plot": {
+            "type": "string"
+          },
+          "runtime": {
+            "type": "integer"
+          },
+          "budget": {
+            "type": "string"
+          },
+          "revenue": {
+            "type": "string"
+          },
+          "homepage": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "posterUrl": {
+            "type": "string"
+          },
+          "backdropUrl": {
+            "type": "string"
+          },
+          "trailerUrl": {
+            "type": "string"
+          },
+          "trailerYoutubeId": {
+            "type": "string"
+          },
+          "tmdbRating": {
+            "type": "integer"
+          },
+          "searchL": {
+            "type": "string"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "countriesOfOrigin": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cast": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "director": {
+            "type": "string"
+          },
+          "production": {
+            "type": "string"
+          },
+          "awardsSummary": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "keywords": [
+            "keywords",
+            "keywords"
+          ],
+          "backdropUrl": "backdropUrl",
+          "production": "production",
+          "trailerYoutubeId": "trailerYoutubeId",
+          "language": "language",
+          "tmdbRating": 5,
+          "title": "title",
+          "cast": [
+            "cast",
+            "cast"
+          ],
+          "revenue": "revenue",
+          "posterUrl": "posterUrl",
+          "plot": "plot",
+          "genres": [
+            "genres",
+            "genres"
+          ],
+          "id": 0,
+          "budget": "budget",
+          "languages": [
+            "languages",
+            "languages"
+          ],
+          "releaseDate": "releaseDate",
+          "director": "director",
+          "awardsSummary": "awardsSummary",
+          "runtime": 1,
+          "trailerUrl": "trailerUrl",
+          "relaseYear": 6,
+          "countriesOfOrigin": [
+            "countriesOfOrigin",
+            "countriesOfOrigin"
+          ],
+          "originalTitle": "originalTitle",
+          "searchL": "searchL",
+          "homepage": "homepage",
+          "status": "status"
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      },
+      "favorites_body": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "UserArray": {
+        "description": "List of user object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}

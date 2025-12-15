@@ -1,0 +1,47 @@
+@use '@/style/breakpoints' as *;
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 50%;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  &__label {
+    white-space: nowrap;
+  }
+
+  &__dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.4);
+    margin: 0 12px;
+    height: 1px;
+  }
+
+  &__value {
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  @include media-down($sm) {
+    &__dots {
+      display: none;
+    }
+
+    &__row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    &__value {
+      white-space: wrap;
+      text-align: left;
+    }
+  }
+}

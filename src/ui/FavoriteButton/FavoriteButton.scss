@@ -1,0 +1,17 @@
+.favorite-btn {
+  .favorite-btn__icon {
+    transition: color 0.3s ease;
+
+    path {
+      transition: fill 0.3s ease;
+    }
+  }
+
+  &--active {
+    color: #b4a9ff;
+
+    .favorite-btn__icon path {
+      fill: #b4a9ff;
+    }
+  }
+}

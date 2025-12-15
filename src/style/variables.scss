@@ -1,0 +1,27 @@
+:root {
+  --body-bg:
+    linear-gradient(180deg, #000000 0%, rgba(39, 36, 36, 0.7) 100%),
+    linear-gradient(
+      178.73deg,
+      rgba(39, 135, 245, 0.18) -17.53%,
+      rgba(163, 147, 245, 0.18) 131.74%
+    );
+
+  --font-color: #ffffff;
+  --border-link-color: #dc5dfc;
+  --active-link-color: #b4a9ff;
+  --search-bg: #393b3c;
+  --search-color: #ffffff;
+  --placeholder-color: rgba(255, 255, 255, 0.5);
+  --content-secondary: rgba(255, 255, 255, 0.7);
+  --error-color: #ff0000;
+  --btn-primary-color: #67a5eb;
+  --btn-secondary-color: #393b3c;
+  --btn-secondary-border-color: rgba(0, 0, 0, 0.4);
+  --btn-hover-color: #fff;
+  --text-color-hover: #000;
+  --btn-disabled-color-primary: #45526e;
+  --text-disabled-color: rgba(255, 255, 255, 0.5);
+  --btn-disabled-color-secondary: rgba(0, 0, 0, 0.4);
+  --link-footer: rgba(255, 255, 255, 0.8);
+}

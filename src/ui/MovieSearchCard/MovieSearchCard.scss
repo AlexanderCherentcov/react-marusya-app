@@ -1,0 +1,54 @@
+@use '@/style/breakpoints' as *;
+
+.movie-search-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 20px 0;
+  gap: 16px;
+
+  &__img {
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  &__text {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--content-secondary);
+  }
+
+  @include media-down($sm) {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+
+    &__img {
+      max-width: 158px;
+      width: 100%;
+      align-self: start;
+    }
+  }
+}

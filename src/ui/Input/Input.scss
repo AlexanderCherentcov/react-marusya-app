@@ -1,0 +1,116 @@
+.custom-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  cursor: pointer;
+
+  &::placeholder {
+    color: var(--placeholder-color);
+  }
+  &__label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__error {
+    color: var(--error-color);
+    font-size: 12px;
+  }
+
+  &__icon--error {
+    color: var(--error-color);
+  }
+
+  &__icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease-in-out;
+
+    &--left {
+      left: 10px;
+    }
+
+    &--right {
+      right: 10px;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease-in-out;
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  &--with-left-icon {
+    padding-left: 38px;
+  }
+
+  &--with-right-icon {
+    padding-right: 38px;
+  }
+
+  &--error {
+    border-color: var(--error-color);
+  }
+}
+
+.custom-input--search {
+  max-width: 665px;
+  .custom-input__icon {
+    color: var(--placeholder-color);
+  }
+
+  .input {
+    background-color: var(--search-bg);
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--search-color);
+    border: none;
+
+    &::placeholder {
+      color: var(--placeholder-color);
+    }
+  }
+}
+
+.custom-input:hover:not(.custom-input--error) .custom-input__icon,
+.custom-input:focus-visible:not(.custom-input--error) .custom-input__icon {
+  color: #b4a9ff;
+}
+
+.custom-input:hover:not(.custom-input--error) .input,
+.custom-input:focus-visible:not(.custom-input--error) .input {
+  border-color: #b4a9ff;
+}
+
+/* Chrome, Edge, Safari */
+.input[type='search']::-webkit-search-cancel-button,
+.input[type='search']::-webkit-search-decoration,
+.input[type='search']::-webkit-search-results-button,
+.input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Firefox  */
+.input[type='search'] {
+  -moz-appearance: textfield;
+}

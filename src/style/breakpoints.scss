@@ -1,0 +1,22 @@
+// ===== Breakpoints =====
+$xs: 480px; // телефоны
+$sm: 640px; // большие телефоны
+$md: 768px; // планшеты
+$lg: 1024px; // маленькие ноутбуки / планшеты по горизонтали
+$xl: 1280px; // обычные ноутбуки (14")
+$xxl: 1440px; // большие ноутбуки (16") / десктопы
+$xxx: 1600px; // широкие десктопы
+
+// ===== Mobile-first: расширяем вверх =====
+@mixin media-up($point) {
+  @media (min-width: $point) {
+    @content;
+  }
+}
+
+// ===== Desktop-first: сужаем вниз =====
+@mixin media-down($point) {
+  @media (max-width: $point) {
+    @content;
+  }
+}

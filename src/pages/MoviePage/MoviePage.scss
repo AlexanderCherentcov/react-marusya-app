@@ -1,0 +1,20 @@
+.movie {
+  padding: 64px 0;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__captain {
+    margin: 0 0 30px;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+  }
+
+  .movie-card__actions-wrapper {
+    flex-wrap: nowrap;
+  }
+}

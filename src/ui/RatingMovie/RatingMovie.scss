@@ -1,0 +1,57 @@
+.rating-movie {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  line-height: 24px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 16px;
+  padding: 8px 12px;
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: inline-block;
+    fill: currentColor;
+  }
+
+  &__info {
+    font-size: 14px;
+  }
+
+  &--sm {
+    padding: 2px 8px;
+
+    .rating-movie__icon {
+      width: 10px;
+      height: 10px;
+    }
+
+    .rating-movie__info {
+      font-size: 12px;
+    }
+  }
+
+  &--excellent {
+    background-color: #a59400;
+  }
+
+  &--good {
+    background-color: #308e21;
+  }
+
+  &--average {
+    background-color: #777777;
+  }
+
+  &--bullshit {
+    background-color: #c82020;
+  }
+
+  &--empty {
+    background: transparent;
+    color: #999;
+  }
+}

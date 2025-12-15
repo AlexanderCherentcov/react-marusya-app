@@ -1,0 +1,75 @@
+@use '@/style/breakpoints' as *;
+
+.header {
+  position: relative;
+  padding: 24px 0;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__nav,
+  &__nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__nav-item--sm {
+    display: none;
+  }
+
+  &__nav {
+    width: 100%;
+  }
+
+  &__user-icon {
+    display: none;
+  }
+
+  @include media-down($sm) {
+    &__wrapper {
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    &__logo-link {
+      justify-self: flex-start;
+      margin-right: auto;
+    }
+
+    &__user-text {
+      display: none;
+    }
+
+    &__nav-item {
+      display: none;
+    }
+
+    &__user-icon {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+
+    &__nav-item--sm {
+      display: block;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &__nav {
+      width: max-content;
+      gap: 20px;
+    }
+  }
+}

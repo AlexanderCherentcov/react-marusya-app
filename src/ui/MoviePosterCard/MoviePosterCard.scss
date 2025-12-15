@@ -1,0 +1,63 @@
+@use '@/style/breakpoints' as *;
+
+.top-movie-card {
+  position: relative;
+  z-index: 1;
+  border-radius: 16px;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 80px 0 rgba(255, 255, 255, 0.33);
+  transition: transform 0.3s ease-in-out;
+
+  &__number {
+    position: absolute;
+    top: -8px;
+    left: -24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 48px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 50px;
+    font-weight: 700;
+    color: rgba(106, 93, 194, 1);
+    z-index: 5;
+    transition:
+      color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+  }
+
+  &__link {
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+
+    &:focus-visible .top-movie-card {
+      transform: scale(1.1);
+    }
+
+    &:focus-visible &__number {
+      background-color: rgba(106, 93, 194, 1);
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-position: center;
+  }
+
+  &:hover,
+  &:focus-within {
+    transform: scale(1.1);
+  }
+
+  &:hover &__number,
+  &:focus-within &__number {
+    background-color: rgba(106, 93, 194, 1);
+    color: rgba(255, 255, 255, 1);
+  }
+}
