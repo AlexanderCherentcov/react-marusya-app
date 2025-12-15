@@ -29,7 +29,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
     formState: { errors },
   } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
-    mode: 'onBlur',
+    mode: 'onSubmit',
   });
 
   const onSubmit = async (values: RegisterSchema) => {
@@ -42,12 +42,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
       });
 
       onSuccess?.();
-    } catch {}
+    } catch(e) {
+      console.error(e);
+    }
   };
 
   return (
     <form
       className="auth-form auth-form--register"
+      noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input

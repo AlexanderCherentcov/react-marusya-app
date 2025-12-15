@@ -20,25 +20,24 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const { login, loading, error: serverError } = useLogin();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginSchema>({
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
-    mode: 'onBlur',
+    mode: 'onSubmit',
   });
 
   const onSubmit = async (values: LoginSchema) => {
     try {
       await login(values);
       onSuccess?.();
-    } catch {}
+    } catch(e) {
+      console.error(e);
+    }
   };
 
   return (
     <form
       className="auth-form auth-form--login"
+      noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
