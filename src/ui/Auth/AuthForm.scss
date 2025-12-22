@@ -17,4 +17,8 @@
   > :nth-last-child(2) {
     margin-bottom: 24px;
   }
+
+  &__error {
+    color: var(--error-color);
+  }
 }

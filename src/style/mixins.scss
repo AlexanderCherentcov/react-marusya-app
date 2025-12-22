@@ -1,0 +1,50 @@
+/* =========================
+   Hover + Focus (desktop)
+   ========================= */
+@mixin hover-desktop {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover,
+    &:focus-visible {
+      @content;
+    }
+  }
+}
+
+/* =========================
+   Hover ONLY (desktop)
+   ========================= */
+@mixin hover-only {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+/* =========================
+   Focus ONLY (a11y)
+   ========================= */
+@mixin focus-only {
+  &:focus-visible {
+    @content;
+  }
+}
+
+/* =========================
+   Active (mobile + desktop)
+   ========================= */
+@mixin active {
+  &:active {
+    @content;
+  }
+}
+
+/* =========================
+   Disabled
+   ========================= */
+@mixin disabled {
+  &:disabled,
+  &[aria-disabled='true'] {
+    @content;
+  }
+}

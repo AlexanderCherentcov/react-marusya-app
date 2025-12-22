@@ -1,4 +1,5 @@
 @use '@/style/breakpoints' as *;
+@use '@/style/mixins' as *;
 
 .top-movie-card {
   position: relative;
@@ -25,8 +26,8 @@
     color: rgba(106, 93, 194, 1);
     z-index: 5;
     transition:
-      color 0.3s ease-in-out,
-      background-color 0.3s ease-in-out;
+            color 0.3s ease-in-out,
+            background-color 0.3s ease-in-out;
   }
 
   &__link {
@@ -34,13 +35,15 @@
     overflow: hidden;
     border-radius: inherit;
 
-    &:focus-visible .top-movie-card {
-      transform: scale(1.1);
-    }
+    @include focus-only {
+      .top-movie-card {
+        transform: scale(1.1);
+      }
 
-    &:focus-visible &__number {
-      background-color: rgba(106, 93, 194, 1);
-      color: rgba(255, 255, 255, 1);
+      .top-movie-card__number {
+        background-color: rgba(106, 93, 194, 1);
+        color: rgba(255, 255, 255, 1);
+      }
     }
   }
 
@@ -50,14 +53,21 @@
     object-position: center;
   }
 
-  &:hover,
-  &:focus-within {
+  @include hover-only {
     transform: scale(1.1);
+
+    .top-movie-card__number {
+      background-color: rgba(106, 93, 194, 1);
+      color: rgba(255, 255, 255, 1);
+    }
   }
 
-  &:hover &__number,
-  &:focus-within &__number {
-    background-color: rgba(106, 93, 194, 1);
-    color: rgba(255, 255, 255, 1);
+  &:focus-within {
+    transform: scale(1.1);
+
+    .top-movie-card__number {
+      background-color: rgba(106, 93, 194, 1);
+      color: rgba(255, 255, 255, 1);
+    }
   }
 }
